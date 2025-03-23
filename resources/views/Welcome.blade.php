@@ -11,11 +11,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Krona+One&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
 
     <!-- Style -->
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-
-
+    <link rel="stylesheet" href="{{ asset('css/welcome.css') }}">
 </head>
-
 
 <body>
     <!-- Navbar Start -->
@@ -115,7 +112,7 @@
 
                 <div class="offering-card">
                     <h3>A Supportive Community</h3>
-                    <p>DearFuture is more than just a platform—it’s a growing community of learners and educators working together to inspire, learn, and grow.</p>
+                    <p>DearFuture is more than just a platform—it's a growing community of learners and educators working together to inspire, learn, and grow.</p>
                 </div>
 
                 <div class="offering-card">
@@ -186,16 +183,15 @@
         </div>
     </div>
     <!-- Review Section End -->
-     <!-- Login Modal -->
-    <!-- Login Modal - Frontend Only -->
-    <div class="login-modal" id="loginModal">
+
+    <!-- Login Modal -->
+<div class="login-modal" id="loginModal">
         <div class="login-modal-content">
             <div class="login-modal-header">
                 <h2>LOGIN</h2>
                 <span class="close-modal">&times;</span>
             </div>
             <div class="login-modal-body">
-                <form action="#" method="POST" class="login-form" onsubmit="event.preventDefault();">
                     <div class="form-group">
                         <input type="email" name="email" id="email" placeholder="Email" required>
                     </div>
@@ -203,26 +199,64 @@
                         <input type="password" name="password" id="password" placeholder="Password" required>
                     </div>
                     <div class="form-group">
-                        <button type="submit" class="login-btn">LOG IN</button>
+                        <button type="submit" class="login-btn"><a href="{{ url('/subjects') }}">LOG IN</a></button>
                     </div>
-                </form>
+                
                 <div class="signup-link">
                     <p>Don't have an account?</p>
-                    <a href="#">SIGN UP</a>
+                    <a href="#" id="openSignupModal">SIGN UP</a>
                 </div>
             </div>
         </div>
     </div>
 
-
-
-
-
-
+    <!-- Signup Modal -->
+    <div class="signup-modal" id="signupModal">
+        <div class="signup-modal-content">
+            <div class="signup-modal-header">
+                <h2>SIGN UP</h2>
+                <span class="close-signup-modal">&times;</span>
+            </div>
+            <div class="signup-modal-body">
+                <form action="#" method="POST" class="signup-form" onsubmit="event.preventDefault();">
+                    <div class="form-group">
+                        <input type="text" name="name" id="signup-name" placeholder="Name" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" name="email" id="signup-email" placeholder="Email" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" name="password" id="signup-password" placeholder="Password" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" name="number" id="signup-number" placeholder="Phone Number" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="school" id="signup-school" placeholder="School" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="date" name="birthdate" id="signup-birthdate" placeholder="Birth Date" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="parent-name" id="signup-parent-name" placeholder="Parent's Name" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" name="parent-phone" id="signup-parent-phone" placeholder="Parent's Phone Number" required>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="signup-btn">SIGN UP</button>
+                    </div>
+                </form>
+                <div class="login-link">
+                    <p>Already have an account?</p>
+                    <a href="#" id="switchToLogin">LOG IN</a>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- My JavaScript -->
-        <script src="{{ asset('js/login-modal.js') }}"></script>
-
+    <script src="{{ asset('js/app.js') }}"></script>
 </body>
 
 </html>
