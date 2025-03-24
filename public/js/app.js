@@ -26,6 +26,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 });
+
 // ======== MODAL FUNCTIONALITY ========
 // Get modal elements
 const loginModal = document.getElementById("loginModal");

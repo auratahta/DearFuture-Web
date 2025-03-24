@@ -1,0 +1,178 @@
+:root {
+    --bg: #131b31;
+    --primary: #e4e4e4;
+    --text: #70798b;
+    --judul: #5af7ff;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    outline: none;
+    border: none;
+    text-decoration: none;
+}
+
+body {
+    font-family: "Krona One", Rubik;
+    background-color: var(--bg);
+    color: var(--primary);
+    min-height: 100vh;
+}
+
+/* Navbar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    padding: 1.4rem 7%;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+    border-bottom: 1px solid #a39b9b;
+    background-color: #131b31;
+    width: 100%;
+}
+
+.navbar .navbar-logo {
+    font-size: 30px;
+    font-family: "Krona One";
+    font-weight: 400;
+    color: var(--judul);
+    text-decoration: none;
+    text-shadow: 0px 4px 7px rgba(90, 247, 255, 0.25);
+}
+
+.navbar .navbar-nav a,
+.navbar .navbar-extra a {
+    color: #fff;
+    font-family: Rubik;
+    font-size: 17px;
+    font-weight: 400;
+    margin: 0 1.5rem;
+    text-decoration: none;
+}
+
+.navbar .navbar-nav a:hover,
+.navbar .navbar-extra a:hover {
+    color: var(--judul);
+    transition: 0.1s;
+}
+
+/* User profile in navbar */
+.navbar .navbar-extra {
+    display: flex;
+    align-items: center;
+}
+
+.navbar .navbar-extra .user-name {
+    color: #fff;
+    margin-right: 10px;
+}
+
+.navbar .navbar-extra .user-avatar {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* Profile Header */
+.profile-header {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 30px;
+    position: relative;
+}
+
+.profile-avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background-color: #8e9097;
+    margin-right: 20px;
+    overflow: hidden;
+}
+
+.profile-info {
+    flex: 1;
+}
+
+.profile-name {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.profile-phone {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 5px;
+}
+
+.profile-email {
+    font-size: 16px;
+    color: #555;
+    text-decoration: none;
+}
+
+.edit-button {
+    position: absolute;
+    right: 0;
+    top: 0;
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.edit-button i {
+    margin-left: 5px;
+}
+
+/* Form Fields */
+.form-field {
+    background-color: #8e9097;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 15px;
+    color: white;
+    font-size: 16px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    header {
+        padding: 15px 5%;
+    }
+
+    .container {
+        margin: 20px 15px;
+        padding: 20px;
+    }
+
+    .profile-header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .profile-avatar {
+        margin-right: 0;
+        margin-bottom: 15px;
+    }
+
+    .edit-button {
+        position: relative;
+        margin-top: 15px;
+    }
+}

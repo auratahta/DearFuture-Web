@@ -9,27 +9,26 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Krona+One&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
-    
-    <!-- Font Awesome for icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
     <!-- Style -->
-    <link rel="stylesheet" href="{{ asset('css/welcome.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/menu.css') }}">
 </head>
 
 <body>
     <!-- Navbar Start -->
     <nav class="navbar">
         <a href="#" class="navbar-logo">DearFuture</a>
-
+        
         <div class="navbar-nav">
-            <a href="#Home">Home</a>
-            <a href="#About">About Us</a>
+            <a href="{{ url('/menu') }}">Home</a>
+            <a href="{{ url('/history') }}" class="active">History</a>
+        </div>
+        
+        <div class="navbar-extra" onclick="window.location.href='{{ url('/profile') }}';" style="cursor: pointer;">
+            <span class="user-name">Aura Tahta</span>
+            <img src="{{ asset('image/profile.png') }}" alt="User Profile" class="user-avatar">
         </div>
 
-        <div class="navbar-extra">
-            <a href="#" id="navLoginBtn">LogIn</a>
-        </div>
     </nav>
     <!-- Navbar End -->
 
@@ -48,13 +47,14 @@
     <!-- Features Section Start -->
     <section class="features">
         <div class="container">
-            <div class="feature-card">
+            <div class="feature-card" onclick="window.location.href='{{ url('/subjects') }}';" style="cursor: pointer;">
                 <div class="feature-icon">
                     <img src="{{ asset('image/Mentor.png') }}" alt="DearFuture Mentor">
                 </div>
                 <h2>Find your Mentor</h2>
                 <p>Connect with expert mentors based on their specialization, availability, and preferred schedule</p>
             </div>
+
 
             <div class="feature-card">
                 <div class="feature-icon">
@@ -76,15 +76,15 @@
     <!-- Features Section End -->
 
     <!-- About Us Start -->
-    <section id="About" class="about">
+    <section id="about" class="about">
         <div class="container">
             <div class="about-content">
-                <h2>About Us</h2>
-                <p>At <span>DearFuture</span>, we are passionate about empowering students by bridging the gap between education and mentorship. We understand that every student has unique aspirations and the right guidance can make all the difference in shaping their future. That's why we created <span>DearFuture</span> — a platform dedicated to connecting students with experienced mentors who can provide insights, advice, and support in their academic and career journeys</p>
+            <h2>About Us</h2>
+                <p> At <span>DearFuture</span>, we are passionate about empowering students by bridging the gap between education and mentorship. We understand that every student has unique aspirations and the right guidance can make all the difference in shaping their future. That's why we created <span> DearFuture </span> — a platform dedicated to connecting students with experienced mentors who can provide insights, advice, and support in their academic and career journeys </p>
             </div>
         </div>
     </section>
-    <!-- About Us End -->
+    <!--About Us End -->
 
     <!-- Features Visi Misi Start -->
     <section class="vision-mission">
@@ -105,7 +105,7 @@
     <section class="offering">
         <div class="container"> 
             <div class="offering-header">
-                <h2>What We Offer?</h2>
+                <h2>What We Offer ?</h2>
             </div>
             <div class="offering-content">
                 <div class="offering-card">
@@ -119,8 +119,8 @@
                 </div>
 
                 <div class="offering-card">
-                    <h3>Educational Resources</h3>
-                    <p>We provide a wide range of informative articles covering topics such as scholarships, UTBK exam schedules, study tips, and career insights. These resources are designed to help students stay informed and prepared for the challenges ahead</p>
+                <h3>Educational Resources</h3>
+                <p>We provide a wide range of informative articles covering topics such as scholarships, UTBK exam schedules, study tips, and career insights. These resources are designed to help students stay informed and prepared for the challenges ahead</p>
                 </div>
             </div>
         </div>
@@ -194,7 +194,7 @@
                             <img src="{{ asset('image/student1.jpg') }}" alt="Nauly Manalu's Photo">
                         </div>
                         <div class="user-details">
-                            <h3 class="user-name">Nauly Manalu</h3>
+                            <h3 class="user-student">Nauly Manalu</h3>
                             <p class="user-role">Pelajar</p>
                         </div>
                     </div>
@@ -216,7 +216,7 @@
                             <img src="{{ asset('image/student2.jpg') }}" alt="Mark Keifer's Photo">
                         </div>
                         <div class="user-details">
-                            <h3 class="user-name">Mark Keifer</h3>
+                            <h3 class="user-student">Mark Keifer</h3>
                             <p class="user-role">Pelajar</p>
                         </div>
                     </div>
@@ -238,7 +238,7 @@
                             <img src="{{ asset('image/student3.jpg') }}" alt="Haechan Lee's Photo">
                         </div>
                         <div class="user-details">
-                            <h3 class="user-name">Haechan Lee</h3>
+                            <h3 class="user-student">Haechan Lee</h3>
                             <p class="user-role">Pelajar</p>
                         </div>
                     </div>
@@ -253,79 +253,10 @@
     </section>
     <!-- Review Section End -->
 
-    <!-- Login Modal -->
-    <div class="login-modal" id="loginModal">
-        <div class="login-modal-content">
-            <div class="login-modal-header">
-                <h2>LOGIN</h2>
-                <span class="close-modal">&times;</span>
-            </div>
-            <div class="login-modal-body">
-                <div class="form-group">
-                    <input type="email" name="email" id="email" placeholder="Email" required>
-                </div>
-                <div class="form-group">
-                    <input type="password" name="password" id="password" placeholder="Password" required>
-                </div>
-                <div class="form-group">
-                    <button type="submit" class="login-btn"><a href="{{ url('/menu') }}">LOG IN</a></button>
-                </div>
-                
-                <div class="signup-link">
-                    <p>Don't have an account?</p>
-                    <a href="#" id="openSignupModal">SIGN UP</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Signup Modal -->
-    <div class="signup-modal" id="signupModal">
-        <div class="signup-modal-content">
-            <div class="signup-modal-header">
-                <h2>SIGN UP</h2>
-                <span class="close-signup-modal">&times;</span>
-            </div>
-            <div class="signup-modal-body">
-                <form action="#" method="POST" class="signup-form" onsubmit="event.preventDefault();">
-                    <div class="form-group">
-                        <input type="text" name="name" id="signup-name" placeholder="Name" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="email" name="email" id="signup-email" placeholder="Email" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="password" name="password" id="signup-password" placeholder="Password" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="tel" name="number" id="signup-number" placeholder="Phone Number" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="text" name="school" id="signup-school" placeholder="School" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="date" name="birthdate" id="signup-birthdate" placeholder="Birth Date" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="text" name="parent-name" id="signup-parent-name" placeholder="Parent's Name" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="tel" name="parent-phone" id="signup-parent-phone" placeholder="Parent's Phone Number" required>
-                    </div>
-                    <div class="form-group">
-                        <button type="submit" class="signup-btn">SIGN UP</button>
-                    </div>
-                </form>
-                <div class="login-link">
-                    <p>Already have an account?</p>
-                    <a href="#" id="switchToLogin">LOG IN</a>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!-- My JavaScript -->
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('js/review.js') }}"></script>
 </body>
+
 </html>
