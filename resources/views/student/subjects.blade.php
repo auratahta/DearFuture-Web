@@ -20,8 +20,8 @@
         <a href="#" class="navbar-logo">DearFuture</a>
         
         <div class="navbar-nav">
-            <a href="{{ url('/menu') }}">Home</a>
-            <a href="{{ url('/history') }}" class="active">History</a>
+            <a href="{{ url('/student/menu') }}">Home</a>
+            <a href="{{ url('/student/history') }}" class="active">History</a>
         </div>
         
         <div class="navbar-extra">
@@ -37,17 +37,17 @@
             <!-- Subject Grid -->
             <div class="subject-grid">
                 <!-- Row 1 -->
-                <a href="{{ url('/find') }}" class="subject-card">
+                <a href="{{ url('/student/find') }}" class="subject-card">
                     <img src="{{ asset('image/subjects/Big Sale.png') }}" alt="Big Deals" class="subject-icon">
                     <p class="subject-name">BIG DEALS</p>
                 </a>
                 
-                <a href="{{ url('/find') }}" class="subject-card">
+                <a href="{{ url('/student/find') }}" class="subject-card">
                     <img src="{{ asset('image/subjects/Snbt.png') }}" alt="SNBT" class="subject-icon">
                     <p class="subject-name">SNBT</p>
                 </a>
                 
-                <a href="{{ url('/find') }}" class="subject-card">
+                <a href="{{ url('/student/find') }}" class="subject-card">
                     <img src="{{ asset('image/subjects/math.png') }}" alt="Math" class="subject-icon">
                     <p class="subject-name">Math</p>
                 </a>

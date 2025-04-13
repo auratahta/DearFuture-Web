@@ -20,8 +20,8 @@
         <a href="#" class="navbar-logo">DearFuture</a>
         
         <div class="navbar-nav">
-            <a href="{{ url('/menu') }}">Home</a>
-            <a href="{{ url('/history') }}" class="active">History</a>
+            <a href="{{ url('/student/menu') }}">Home</a>
+            <a href="{{ url('/student/history') }}" class="active">History</a>
         </div>
         
         <div class="navbar-extra" onclick="window.location.href='{{ url('/profile') }}';" style="cursor: pointer;">
@@ -47,7 +47,7 @@
     <!-- Features Section Start -->
     <section class="features">
         <div class="container">
-            <div class="feature-card" onclick="window.location.href='{{ url('/subjects') }}';" style="cursor: pointer;">
+            <div class="feature-card" onclick="window.location.href='{{ url('/student/subjects') }}';" style="cursor: pointer;">
                 <div class="feature-icon">
                     <img src="{{ asset('image/Mentor.png') }}" alt="DearFuture Mentor">
                 </div>
@@ -56,7 +56,7 @@
             </div>
 
 
-            <div class="feature-card">
+            <div class="feature-card" onclick="window.location.href='{{ url('/student/subjects') }}';" style="cursor: pointer;">
                 <div class="feature-icon">
                     <img src="{{ asset('image/news.png') }}" alt="DearFuture news">
                 </div>
@@ -64,7 +64,7 @@
                 <p>Access valuable resources, including scholarship opportunities, exam schedules, and inspiring articles</p>
             </div>
 
-            <div class="feature-card">
+            <div class="feature-card" onclick="window.location.href='{{ url('/student/menu') }}';" style="cursor: pointer;">
                 <div class="feature-icon">
                     <img src="{{ asset('image/review.png') }}" alt="DearFuture review">
                 </div>
@@ -247,7 +247,7 @@
             
             <div class="review-footer">
                 <p class="tagline">"At DearFuture, we believe that your future starts with the right guidance."</p>
-                <a href="#" class="cta-button">Let's build your success together!</a>
+                <p>Let's build your success together!</p>
             </div>
         </div>
     </section>

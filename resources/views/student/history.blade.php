@@ -20,8 +20,8 @@
         <a href="#" class="navbar-logo">DearFuture</a>
         
         <div class="navbar-nav">
-            <a href="{{ url('/menu') }}">Home</a>
-            <a href="{{ url('/history') }}" class="active">History</a>
+            <a href="{{ url('/student/menu') }}">Home</a>
+            <a href="{{ url('/student/history') }}" class="active">History</a>
         </div>
         
         <div class="navbar-extra">

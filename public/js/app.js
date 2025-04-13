@@ -140,16 +140,16 @@ document.addEventListener("keydown", function (event) {
         });
     }
 
-    // Signup form submission
-    if (signupForm) {
-        signupForm.addEventListener("submit", function (e) {
-            e.preventDefault();
-            const name = document.getElementById("signup-name").value;
-            const email = document.getElementById("signup-email").value;
+    // // Signup form submission
+    // if (signupForm) {
+    //     signupForm.addEventListener("submit", function (e) {
+    //         e.preventDefault();
+    //         const name = document.getElementById("signup-name").value;
+    //         const email = document.getElementById("signup-email").value;
 
-            // Close signup modal and go back to login modal
-            closeSignupModal();
-            openLoginModal();
-        });
-    }
+    //         // Close signup modal and go back to login modal
+    //         closeSignupModal();
+    //         openLoginModal();
+    //     });
+    // }
 });

@@ -247,7 +247,7 @@
             
             <div class="review-footer">
                 <p class="tagline">"At DearFuture, we believe that your future starts with the right guidance."</p>
-                <a href="#" class="cta-button">Let's build your success together!</a>
+                <p>Let's build your success together!</p>
             </div>
         </div>
     </section>
@@ -261,20 +261,23 @@
                 <span class="close-modal">&times;</span>
             </div>
             <div class="login-modal-body">
-                <div class="form-group">
-                    <input type="email" name="email" id="email" placeholder="Email" required>
-                </div>
-                <div class="form-group">
-                    <input type="password" name="password" id="password" placeholder="Password" required>
-                </div>
-                <div class="form-group">
-                    <button type="submit" class="login-btn"><a href="{{ url('/menu') }}">LOG IN</a></button>
-                </div>
-                
-                <div class="signup-link">
-                    <p>Don't have an account?</p>
-                    <a href="#" id="openSignupModal">SIGN UP</a>
-                </div>
+                <form action="{{ route('login') }}" method="POST">
+                    @csrf
+                    <div class="form-group">
+                        <input type="email" name="email" id="email" placeholder="Email" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" name="password" id="password" placeholder="Password" required>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="login-btn">LOG IN</button>
+                    </div>
+                    
+                    <div class="signup-link">
+                        <p>Don't have an account?</p>
+                        <a href="#" id="openSignupModal">SIGN UP</a>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -287,7 +290,8 @@
                 <span class="close-signup-modal">&times;</span>
             </div>
             <div class="signup-modal-body">
-                <form action="#" method="POST" class="signup-form" onsubmit="event.preventDefault();">
+                <form action="{{ route('register') }}" method="POST" class="signup-form">
+                    @csrf
                     <div class="form-group">
                         <input type="text" name="name" id="signup-name" placeholder="Name" required>
                     </div>

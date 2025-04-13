@@ -11,13 +11,16 @@ class DatabaseSeeder extends Seeder
     /**
      * Seed the application's database.
      */
-    public function run(): void
-    {
-        // User::factory(10)->create();
-
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
-    }
+    // database/seeders/UsersTableSeeder.php
+public function run()
+{
+    \App\Models\User::create([
+        'name' => 'Admin',
+        'email' => 'admin@dearfuture.com',
+        'password' => Hash::make('password123'),
+        'role' => 'admin',
+    ]);
+    
+    // Tambahkan user mentor dan pelajar juga
+}
 }
