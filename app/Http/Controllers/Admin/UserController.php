@@ -48,6 +48,13 @@ class UserController extends Controller
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8',
             'role' => 'required|in:admin,pelajar,mentor',
+            'phone' => 'nullable|string',
+            'address' => 'nullable|string',
+            'bio' => 'nullable|string',
+            'school' => 'nullable|string',
+            'birthdate' => 'nullable|date',
+            'parent_name' => 'nullable|string',
+            'parent_phone' => 'nullable|string',
         ]);
         
         $user = User::create([
@@ -55,15 +62,22 @@ class UserController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'role' => $request->role,
+            'phone' => $request->phone,
+            'address' => $request->address,
+            'bio' => $request->bio,
+            'school' => $request->school,
+            'birthdate' => $request->birthdate,
+            'parent_name' => $request->parent_name,
+            'parent_phone' => $request->parent_phone,
         ]);
         
         // Create mentor profile if user is a mentor
-        if ($user->role === 'mentor') {
+        if ($request->role === 'mentor') {
             MentorProfile::create([
                 'user_id' => $user->id,
                 'experience' => $request->experience ?? '',
                 'education' => $request->education ?? '',
-                'hourly_rate' => $request->hourly_rate ?? 0,
+                'hourly_rate' => $request->hourly_rate ?? '',
                 'is_active' => $request->has('is_active'),
             ]);
         }
@@ -76,9 +90,9 @@ class UserController extends Controller
      * Display the specified user.
      */
     public function show(User $user)
-    {
-        return view('admin.users.show', compact('user'));
-    }
+{
+    return view('admin.users.show', compact('user'));
+}
 
     /**
      * Show the form for editing the specified user.
@@ -98,12 +112,26 @@ class UserController extends Controller
             'email' => 'required|email|unique:users,email,' . $user->id,
             'role' => 'required|in:admin,pelajar,mentor',
             'password' => 'nullable|min:8',
+            'phone' => 'nullable|string',
+            'address' => 'nullable|string',
+            'bio' => 'nullable|string',
+            'school' => 'nullable|string',
+            'birthdate' => 'nullable|date',
+            'parent_name' => 'nullable|string',
+            'parent_phone' => 'nullable|string',
         ]);
         
         $userData = [
             'name' => $request->name,
             'email' => $request->email,
             'role' => $request->role,
+            'phone' => $request->phone,
+            'address' => $request->address,
+            'bio' => $request->bio,
+            'school' => $request->school,
+            'birthdate' => $request->birthdate,
+            'parent_name' => $request->parent_name,
+            'parent_phone' => $request->parent_phone,
         ];
         
         if ($request->filled('password')) {
@@ -113,7 +141,7 @@ class UserController extends Controller
         $user->update($userData);
         
         // Handle mentor profile if user is a mentor
-        if ($user->role === 'mentor') {
+        if ($request->role === 'mentor') {
             $mentorProfile = MentorProfile::where('user_id', $user->id)->first();
             
             if (!$mentorProfile) {
@@ -144,12 +172,7 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         // Delete mentor profile if exists
-        if ($user->role === 'mentor') {
-            $mentorProfile = MentorProfile::where('user_id', $user->id)->first();
-            if ($mentorProfile) {
-                $mentorProfile->delete();
-            }
-        }
+        MentorProfile::where('user_id', $user->id)->delete();
         
         $user->delete();
         

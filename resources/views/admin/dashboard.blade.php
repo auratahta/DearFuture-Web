@@ -427,10 +427,10 @@
                                 </td>
                                 <td>{{ $user->created_at->format('d M Y, H:i') }}</td>
                                 <td>
-                                    <a href="{{ route('admin.index', $user->id) }}" class="btn btn-sm btn-info">
+                                    <a href="{{ route('admin.users.show', $user->id) }}" class="btn btn-sm btn-info">
                                         <i class="fas fa-eye"></i>
                                     </a>
-                                    <a href="{{ route('admin.edit', $user->id) }}" class="btn btn-sm btn-warning">
+                                    <a href="{{ route('admin.users.edit', $user->id) }}" class="btn btn-sm btn-warning">
                                         <i class="fas fa-edit"></i>
                                     </a>
                                 </td>

@@ -42,3 +42,4 @@ class DashboardController extends Controller
         ));
     }
 }
+

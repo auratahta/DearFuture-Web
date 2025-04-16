@@ -20,11 +20,11 @@
         <a href="#" class="navbar-logo">DearFuture</a>
         
         <div class="navbar-nav">
-            <a href="{{ url('/mentor/dashboard_menu') }}">Home</a>
+            <a href="{{ url('/mentor/dashboard_mentor') }}">Home</a>
         </div>
         
         <div class="navbar-extra" onclick="window.location.href='{{ url('/profile') }}';" style="cursor: pointer;">
-            <span class="user-name">Aura Tahta</span>
+            <span class="user-name">Deananda Viany</span>
             <img src="{{ asset('image/profile.png') }}" alt="User Profile" class="user-avatar">
         </div>
 
@@ -46,7 +46,7 @@
     <!-- Features Section Start -->
     <section class="features">
         <div class="container">
-            <div class="feature-card" onclick="window.location.href='{{ url('/student/subjects') }}';" style="cursor: pointer;">
+            <div class="feature-card" onclick="window.location.href='{{ url('/mentor/schedule') }}';" style="cursor: pointer;">
                 <div class="feature-icon">
                     <img src="{{ asset('image/Mentor.png') }}" alt="DearFuture Mentor">
                 </div>

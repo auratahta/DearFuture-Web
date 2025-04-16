@@ -3,9 +3,11 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Mentor\DashboardController as MentorDashboardController;
 use App\Http\Controllers\Student\DashboardController as StudentDashboardController;
+use App\Http\Controllers\Student\ProfileStudentController;
 
 // Public routes
 Route::get('/', function () {
@@ -18,43 +20,26 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::post('/register', [RegisterController::class, 'register'])->name('register');
 
 // Admin routes
-Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
-    Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
-    // Tambahkan route lainnya untuk admin
-});
-// Mentor routes
-Route::prefix('mentor')->middleware(['auth'])->group(function () {
-    Route::get('/dashboard', [MentorDashboardController::class, 'index'])->name('mentor.dashboard_mentor');
-    // Tambahkan route lainnya untuk mentor
-});
-
-// Student routes
-Route::prefix('student')->middleware(['auth'])->group(function () {
-    // Route::get('/menu', [StudentDashboardController::class, 'index'])->name('student.menu');
-    // Tambahkan route lainnya untuk student
-});
-
-// Public pages accessible from welcome
-Route::get('/about', function () {
-    return view('about');
-})->name('about');
-
-Route::get('/contact', function () {
-    return view('contact');
-})->name('contact');
-
-// Admin routes
 Route::prefix('admin')->middleware(['auth'])->group(function () {
+    // Dashboard
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
     
-    // Admin menu routes
+    // User Management - Menggunakan resource controller
+    Route::resource('users', UserController::class)->names([
+        'index' => 'admin.users.index',
+        'create' => 'admin.users.create',
+        'store' => 'admin.users.store',
+        'show' => 'admin.users.show',
+        'edit' => 'admin.users.edit',
+        'update' => 'admin.users.update',
+        'destroy' => 'admin.users.destroy',
+    ]);
+
+    
+    // Rute lainnya yang menggunakan closure
     Route::get('/subjects', function () {
         return view('admin.subjects.index');
     })->name('admin.subjects.index');
-    
-    Route::get('/users', function () {
-        return view('admin.users.index');
-    })->name('admin.users.index');
     
     Route::get('/mentors', function () {
         return view('admin.mentors.index');
@@ -72,14 +57,6 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
         return view('admin.payments.index');
     })->name('admin.payments.index');
 
-    Route::get('/index', function () {
-        return view('admin.index');
-    })->name('admin.index');
-
-    Route::get('/edit', function () {
-        return view('admin.edit');
-    })->name('admin.edit');
-
     Route::get('/news', function () {
         return view('admin.news.index');
     })->name('admin.news.index');
@@ -87,12 +64,11 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
 
 // Mentor routes
 Route::prefix('mentor')->middleware(['auth'])->group(function () {
-    Route::get('/dashboard_mentor', [MentorDashboardController::class, 'index'])->name('mentor.dashboard_mentor');
+    Route::get('/dashboard', [MentorDashboardController::class, 'index'])->name('mentor.dashboard_mentor');
     
-    // Mentor menu routes
     Route::get('/schedule', function () {
-        return view('student.menu');
-    })->name('student.menu');
+        return view('mentor.schedule');
+    })->name('mentor.schedule');
     
     Route::get('/subjects', function () {
         return view('mentor.subjects');
@@ -113,9 +89,14 @@ Route::prefix('mentor')->middleware(['auth'])->group(function () {
 
 // Student routes
 Route::prefix('student')->middleware(['auth'])->group(function () {
-    // Route::get('/menu', [StudentDashboardController::class, 'index'])->name('student.menu');
+    Route::get('/dashboard', [StudentDashboardController::class, 'index'])->name('student.dashboard');
     
-    // Student menu routes
+    // Profile
+    Route::get('/profile', [ProfileStudentController::class, 'index'])->name('student.profile');
+    Route::put('/profile/update', [ProfileStudentController::class, 'update'])->name('student.profile.update');
+    Route::get('/change-password', [ProfileStudentController::class, 'showChangePasswordForm'])->name('student.password.form');
+    Route::post('/change-password', [ProfileStudentController::class, 'changePassword'])->name('student.password.update');
+    
     Route::get('/menu', function () {
         return view('student.menu');
     })->name('student.menu');
@@ -131,10 +112,6 @@ Route::prefix('student')->middleware(['auth'])->group(function () {
     Route::get('/history', function () {
         return view('student.history');
     })->name('student.history');
-    
-    Route::get('/profile', function () {
-        return view('student.profile');
-    })->name('student.profile');
 });
 
 // Route fallback untuk menangani 404

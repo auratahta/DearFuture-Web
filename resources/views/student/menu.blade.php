@@ -24,7 +24,7 @@
             <a href="{{ url('/student/history') }}" class="active">History</a>
         </div>
         
-        <div class="navbar-extra" onclick="window.location.href='{{ url('/profile') }}';" style="cursor: pointer;">
+        <div class="navbar-extra" onclick="window.location.href='{{ route('student.profile') }}';" style="cursor: pointer;">
             <span class="user-name">Aura Tahta</span>
             <img src="{{ asset('image/profile.png') }}" alt="User Profile" class="user-avatar">
         </div>

@@ -42,19 +42,19 @@
             </div>
         </div>
         
-        <!-- Search Bar with filters -->
+        Search Bar with filters
         <div class="search-section">
             <div class="search-container">
                 <input type="text" id="searchInput" placeholder="Search by subject or tutor name" class="search-input">
                 <button onclick="searchCourses()" class="search-button">SEARCH</button>
             </div>
-            <div class="filter-tags">
+            <!-- <div class="filter-tags">
                 <span class="filter-tag active">All</span>
                 <span class="filter-tag">Morning</span>
                 <span class="filter-tag">Afternoon</span>
                 <span class="filter-tag">Evening</span>
                 <span class="filter-tag">Weekend</span>
-            </div>
+            </div> -->
         </div>
         
         <!-- Featured Tutors Section -->
