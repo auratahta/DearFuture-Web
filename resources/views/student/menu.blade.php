@@ -10,6 +10,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Krona+One&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
 
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <!-- Style -->
     <link rel="stylesheet" href="{{ asset('css/menu.css') }}">
 </head>
@@ -20,15 +23,14 @@
         <a href="#" class="navbar-logo">DearFuture</a>
         
         <div class="navbar-nav">
-            <a href="{{ url('/student/menu') }}">Home</a>
-            <a href="{{ url('/student/history') }}" class="active">History</a>
+            <a href="{{ url('/student/menu') }}" class="active">Home</a>
+            <a href="{{ url('/student/history') }}">History</a>
         </div>
         
         <div class="navbar-extra" onclick="window.location.href='{{ route('student.profile') }}';" style="cursor: pointer;">
-            <span class="user-name">Aura Tahta</span>
-            <img src="{{ asset('image/profile.png') }}" alt="User Profile" class="user-avatar">
+            <span class="user-name">{{ Auth::user()->name }}</span>
+            <img src="{{ Auth::user()->photo ? asset('storage/'.Auth::user()->photo) : asset('image/profile.png') }}" alt="User Profile" class="user-avatar">
         </div>
-
     </nav>
     <!-- Navbar End -->
 
@@ -253,10 +255,8 @@
     </section>
     <!-- Review Section End -->
 
-
     <!-- My JavaScript -->
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('js/review.js') }}"></script>
 </body>
-
 </html>

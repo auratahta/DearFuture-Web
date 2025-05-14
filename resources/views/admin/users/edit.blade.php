@@ -113,35 +113,42 @@
             border-color: var(--primary-color);
             color: #131b31;
             font-weight: 500;
+            transition: all 0.3s ease;
         }
         
         .btn-primary:hover {
             background-color: #45d6e0;
             border-color: #45d6e0;
             color: #131b31;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(90, 247, 255, 0.3);
         }
         
         .btn-secondary {
             background-color: #2c3044;
             border-color: #2c3044;
             color: var(--text-color);
+            transition: all 0.3s ease;
         }
         
         .btn-secondary:hover {
             background-color: #3a3e56;
             border-color: #3a3e56;
             color: var(--text-color);
+            transform: translateY(-2px);
         }
         
         .btn-outline-light {
             color: var(--text-color);
             border-color: var(--text-color);
+            transition: all 0.3s ease;
         }
         
         .btn-outline-light:hover {
             background-color: rgba(255, 255, 255, 0.1);
             color: var(--primary-color);
             border-color: var(--primary-color);
+            transform: translateY(-2px);
         }
         
         .card {
@@ -150,6 +157,12 @@
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
             margin-bottom: 30px;
             overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .card:hover {
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            transform: translateY(-5px);
         }
         
         .card-header {
@@ -158,32 +171,82 @@
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
         
-        .form-control, .form-select {
-            background-color: #1e2132;
-            border-color: #2c3044;
-            color: #e4e4e4;
+        .form-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-top: 30px;
         }
         
-        .form-control:focus, .form-select:focus {
-            background-color: #1e2132;
-            border-color: #5af7ff;
-            color: #e4e4e4;
-            box-shadow: 0 0 0 0.25rem rgba(90, 247, 255, 0.25);
+        .user-profile-container {
+            flex: 1;
+            min-width: 200px;
+            text-align: center;
+        }
+        
+        .user-form-container {
+            flex: 2;
+            min-width: 300px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+            background-color: rgba(255, 255, 255, 0.03);
+            padding: 15px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .form-group:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+            transform: translateX(5px);
         }
         
         .form-label {
-            color: #e4e4e4;
-            font-weight: 500;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .form-control, .form-select {
+            background-color: rgba(30, 33, 50, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-color);
+            border-radius: 8px;
+            padding: 12px 15px;
+            transition: all 0.3s ease;
+        }
+        
+        .form-control:focus, .form-select:focus {
+            background-color: rgba(30, 33, 50, 0.9);
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.25rem rgba(90, 247, 255, 0.25);
+            color: #ffffff;
+        }
+        
+        .form-control::placeholder {
+            color: rgba(228, 228, 228, 0.5);
         }
         
         .form-check-input {
-            background-color: #1e2132;
-            border-color: #2c3044;
+            background-color: rgba(30, 33, 50, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            width: 1.2rem;
+            height: 1.2rem;
         }
         
         .form-check-input:checked {
             background-color: var(--primary-color);
             border-color: var(--primary-color);
+        }
+        
+        .form-check-label {
+            color: var(--text-color);
+            font-weight: 500;
+            padding-left: 5px;
         }
         
         .nav-tabs {
@@ -195,11 +258,15 @@
             border: none;
             border-bottom: 2px solid transparent;
             background: transparent;
+            font-weight: 500;
+            padding: 12px 20px;
+            transition: all 0.3s ease;
         }
         
         .nav-tabs .nav-link:hover {
             color: #e4e4e4;
             border-color: transparent;
+            transform: translateY(-3px);
         }
         
         .nav-tabs .nav-link.active {
@@ -207,19 +274,142 @@
             background-color: transparent;
             border-color: transparent;
             border-bottom: 2px solid #5af7ff;
+            transform: translateY(-3px);
+        }
+        
+        /* User profile photo */
+        .user-profile-photo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 20px;
+            display: block;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .user-profile-photo:hover {
+            border-color: #ffffff;
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(90, 247, 255, 0.4);
+        }
+        
+        .user-name {
+            font-size: 28px;
+            font-weight: 600;
+            margin: 10px 0;
+            color: #ffffff;
+        }
+        
+        .photo-upload-container {
+            position: relative;
+            margin-bottom: 30px;
+        }
+        
+        .photo-upload-btn {
+            position: absolute;
+            bottom: 0;
+            right: 50%;
+            transform: translateX(75px);
+            background-color: var(--primary-color);
+            color: #131b31;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .photo-upload-btn:hover {
+            background-color: #ffffff;
+            transform: translateX(75px) scale(1.1);
+        }
+        
+        .badge-role {
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            margin-top: 10px;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+        
+        .badge-role:hover {
+            transform: scale(1.05);
+        }
+        
+        .badge-admin {
+            background-color: rgba(231, 74, 59, 0.2);
+            color: #e74a3b;
+        }
+        
+        .badge-mentor {
+            background-color: rgba(54, 185, 204, 0.2);
+            color: #36b9cc;
+        }
+        
+        .badge-pelajar {
+            background-color: rgba(28, 200, 138, 0.2);
+            color: #1cc88a;
+        }
+        
+        .form-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
+        .form-buttons .btn {
+            min-width: 150px;
+            padding: 12px 20px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .form-buttons .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
         }
         
         .alert-success {
             background-color: rgba(28, 200, 138, 0.1);
             border-color: #1cc88a;
             color: #1cc88a;
+            border-radius: 8px;
         }
         
         .invalid-feedback {
             color: #e74a3b;
+            font-size: 0.85rem;
+            margin-top: 5px;
         }
         
         /* Responsive */
+        @media (max-width: 992px) {
+            .form-container {
+                flex-direction: column;
+            }
+            
+            .user-profile-container, 
+            .user-form-container {
+                width: 100%;
+            }
+            
+            .photo-upload-btn {
+                right: calc(50% - 75px);
+            }
+        }
+        
         @media (max-width: 768px) {
             .sidebar {
                 width: 70px;
@@ -242,6 +432,19 @@
             
             .main-content {
                 margin-left: 70px;
+            }
+            
+            .form-buttons {
+                flex-direction: column;
+            }
+            
+            .form-buttons .btn {
+                width: 100%;
+            }
+            
+            .nav-tabs .nav-link {
+                padding: 10px 12px;
+                font-size: 14px;
             }
         }
     </style>
@@ -305,7 +508,7 @@
    <!-- Main Content -->
    <div class="main-content">
        <div class="content-header">
-           <h1 class="content-title">Edit User: {{ $user->name }}</h1>
+           <h1 class="content-title">Edit User</h1>
            <a href="{{ route('admin.users.index') }}" class="btn btn-outline-light">
                <i class="fas fa-arrow-left"></i> Back to Users
            </a>
@@ -322,167 +525,271 @@
            <div class="card-header">
                <ul class="nav nav-tabs card-header-tabs" id="userTabs" role="tablist">
                    <li class="nav-item" role="presentation">
-                       <button class="nav-link active" id="basic-tab" data-bs-toggle="tab" data-bs-target="#basic" type="button" role="tab" aria-controls="basic" aria-selected="true">Basic Info</button>
+                       <button class="nav-link active" id="basic-tab" data-bs-toggle="tab" data-bs-target="#basic" type="button" role="tab" aria-controls="basic" aria-selected="true">
+                           <i class="fas fa-user me-2"></i>Basic Info
+                       </button>
                    </li>
-                   <li class="nav-item" role="presentation" id="student-tab-container" style="display: none;">
-                       <button class="nav-link" id="student-tab" data-bs-toggle="tab" data-bs-target="#student" type="button" role="tab" aria-controls="student" aria-selected="false">Personal Details</button>
+                   <li class="nav-item" role="presentation" id="student-tab-container" style="{{ $user->role == 'pelajar' ? 'display: block' : 'display: none' }}">
+                       <button class="nav-link" id="student-tab" data-bs-toggle="tab" data-bs-target="#student" type="button" role="tab" aria-controls="student" aria-selected="false">
+                           <i class="fas fa-graduation-cap me-2"></i>Personal Details
+                       </button>
                    </li>
-                   <li class="nav-item" role="presentation" id="mentor-tab-container" style="display: none;">
-                       <button class="nav-link" id="mentor-tab" data-bs-toggle="tab" data-bs-target="#mentor" type="button" role="tab" aria-controls="mentor" aria-selected="false">Mentor Info</button>
+                   <li class="nav-item" role="presentation" id="mentor-tab-container" style="{{ $user->role == 'mentor' ? 'display: block' : 'display: none' }}">
+                       <button class="nav-link" id="mentor-tab" data-bs-toggle="tab" data-bs-target="#mentor" type="button" role="tab" aria-controls="mentor" aria-selected="false">
+                           <i class="fas fa-chalkboard-teacher me-2"></i>Mentor Info
+                       </button>
                    </li>
                </ul>
            </div>
            <div class="card-body">
-               <form action="{{ route('admin.users.update', $user->id) }}" method="POST">
+               <form action="{{ route('admin.users.update', $user->id) }}" method="POST" enctype="multipart/form-data">
                    @csrf
                    @method('PUT')
                    
                    <div class="tab-content" id="userTabsContent">
                        <!-- Basic Info Tab -->
                        <div class="tab-pane fade show active" id="basic" role="tabpanel" aria-labelledby="basic-tab">
-                           <div class="mb-3">
-                               <label for="name" class="form-label">Name</label>
-                               <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name', $user->name) }}" required>
-                               @error('name')
-                                   <div class="invalid-feedback">{{ $message }}</div>
-                               @enderror
-                           </div>
-                           
-                           <div class="mb-3">
-                               <label for="email" class="form-label">Email</label>
-                               <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" value="{{ old('email', $user->email) }}" required>
-                               @error('email')
-                                   <div class="invalid-feedback">{{ $message }}</div>
-                               @enderror
-                           </div>
-                           
-                           <div class="mb-3">
-                               <label for="phone" class="form-label">Phone Number</label>
-                               <input type="text" class="form-control" id="phone" name="phone" value="{{ old('phone', $user->phone) }}">
-                           </div>
-
-                           <div class="mb-3">
-                               <label for="role" class="form-label">Role</label>
-                               <select class="form-select @error('role') is-invalid @enderror" id="role" name="role" required>
-                                   <option value="admin" {{ old('role', $user->role) === 'admin' ? 'selected' : '' }}>Admin</option>
-                                   <option value="mentor" {{ old('role', $user->role) === 'mentor' ? 'selected' : '' }}>Mentor</option>
-                                   <option value="pelajar" {{ old('role', $user->role) === 'pelajar' ? 'selected' : '' }}>Student</option>
-                               </select>
-                               @error('role')
-                                   <div class="invalid-feedback">{{ $message }}</div>
-                               @enderror
-                           </div>
-                           
-                           <div class="mb-3">
-                               <label for="password" class="form-label">Password (leave empty to keep current)</label>
-                               <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password">
-                               @error('password')
-                                   <div class="invalid-feedback">{{ $message }}</div>
-                               @enderror
-                           </div>
-                           
-                           <div class="mb-3">
-                               <label for="address" class="form-label">Address</label>
-                               <textarea class="form-control" id="address" name="address" rows="3">{{ old('address', $user->address) }}</textarea>
+                           <div class="form-container">
+                               <!-- Left Side - Profile Photo -->
+                               <div class="user-profile-container">
+                                   <div class="photo-upload-container">
+                                       <img src="{{ $user->photo ? asset('storage/' . $user->photo) : asset('image/profile.png') }}" alt="{{ $user->name }}" class="user-profile-photo" id="photoPreview">
+                                       <label for="photo" class="photo-upload-btn">
+                                           <i class="fas fa-camera"></i>
+                                       </label>
+                                       <input type="file" name="photo" id="photo" class="d-none" onchange="previewPhoto(this)">
+                                   </div>
+                                   
+                                   <div class="form-group">
+                                       <label for="role" class="form-label"><i class="fas fa-user-tag me-2"></i>Role</label>
+                                       <select name="role" id="role" class="form-select @error('role') is-invalid @enderror">
+                                           <option value="admin" {{ $user->role == 'admin' ? 'selected' : '' }}>Admin</option>
+                                           <option value="mentor" {{ $user->role == 'mentor' ? 'selected' : '' }}>Mentor</option>
+                                           <option value="pelajar" {{ $user->role == 'pelajar' ? 'selected' : '' }}>Student</option>
+                                       </select>
+                                       @error('role')
+                                           <div class="invalid-feedback">{{ $message }}</div>
+                                       @enderror
+                                   </div>
+                               </div>
+                               
+                               <!-- Right Side - User Details Form -->
+                               <div class="user-form-container">
+                                   <div class="form-group">
+                                       <label for="name" class="form-label"><i class="fas fa-user me-2"></i>Name</label>
+                                       <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name', $user->name) }}" required>
+                                       @error('name')
+                                           <div class="invalid-feedback">{{ $message }}</div>
+                                       @enderror
+                                   </div>
+                                   
+                                   <div class="form-group">
+                                       <label for="email" class="form-label"><i class="fas fa-envelope me-2"></i>Email</label>
+                                       <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" value="{{ old('email', $user->email) }}" required>
+                                       @error('email')
+                                           <div class="invalid-feedback">{{ $message }}</div>
+                                       @enderror
+                                   </div>
+                                   
+                                   <div class="form-group">
+                                       <label for="phone" class="form-label"><i class="fas fa-phone me-2"></i>Phone Number</label>
+                                       <input type="text" class="form-control @error('phone') is-invalid @enderror" id="phone" name="phone" value="{{ old('phone', $user->phone) }}">
+                                       @error('phone')
+                                           <div class="invalid-feedback">{{ $message }}</div>
+                                       @enderror
+                                   </div>
+                                   
+                                   <div class="form-group">
+                                       <label for="address" class="form-label"><i class="fas fa-map-marker-alt me-2"></i>Address</label>
+                                       <textarea class="form-control @error('address') is-invalid @enderror" id="address" name="address" rows="3">{{ old('address', $user->address) }}</textarea>
+                                       @error('address')
+                                           <div class="invalid-feedback">{{ $message }}</div>
+                                       @enderror
+                                   </div>
+                                   
+                                   <div class="form-group">
+                                       <label for="password" class="form-label"><i class="fas fa-lock me-2"></i>Password (leave empty to keep current)</label>
+                                       <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password">
+                                       <small class="text-light">Only fill this if you want to change the password</small>
+                                       @error('password')
+                                           <div class="invalid-feedback">{{ $message }}</div>
+                                       @enderror
+                                   </div>
+                                   
+                                   <div class="form-group">
+                                       <label for="password_confirmation" class="form-label"><i class="fas fa-lock me-2"></i>Confirm Password</label>
+                                       <input type="password" class="form-control" id="password_confirmation" name="password_confirmation">
+                                   </div>
+                               </div>
                            </div>
                        </div>
                        
                        <!-- Student Personal Details Tab -->
                        <div class="tab-pane fade" id="student" role="tabpanel" aria-labelledby="student-tab">
-                           <div class="mb-3">
-                               <label for="school" class="form-label">School</label>
-                               <input type="text" class="form-control" id="school" name="school" value="{{ old('school', $user->school) }}">
-                           </div>
-                           
-                           <div class="mb-3">
-                               <label for="birthdate" class="form-label">Birth Date</label>
-                               <input type="date" class="form-control" id="birthdate" name="birthdate" value="{{ old('birthdate', $user->birthdate) }}">
-                           </div>
-                           
-                           <div class="mb-3">
-                               <label for="parent_name" class="form-label">Parent's Name</label>
-                               <input type="text" class="form-control" id="parent_name" name="parent_name" value="{{ old('parent_name', $user->parent_name) }}">
-                           </div>
-                           
-                           <div class="mb-3">
-                               <label for="parent_phone" class="form-label">Parent's Phone</label>
-                               <input type="text" class="form-control" id="parent_phone" name="parent_phone" value="{{ old('parent_phone', $user->parent_phone) }}">
+                           <div class="row mt-4">
+                               <div class="col-md-6">
+                                   <div class="form-group">
+                                       <label for="school" class="form-label"><i class="fas fa-school me-2"></i>School</label>
+                                       <input type="text" class="form-control @error('school') is-invalid @enderror" id="school" name="school" value="{{ old('school', $user->school) }}">
+                                       @error('school')
+                                           <div class="invalid-feedback">{{ $message }}</div>
+                                       @enderror
+                                   </div>
+                               </div>
+                               
+                               <div class="col-md-6">
+                                   <div class="form-group">
+                                       <label for="birthdate" class="form-label"><i class="fas fa-birthday-cake me-2"></i>Birth Date</label>
+                                       <input type="date" class="form-control @error('birthdate') is-invalid @enderror" id="birthdate" name="birthdate" value="{{ old('birthdate', $user->birthdate) }}">
+                                       @error('birthdate')
+                                           <div class="invalid-feedback">{{ $message }}</div>
+                                       @enderror
+                                   </div>
+                               </div>
+                               
+                               <div class="col-md-6">
+                                   <div class="form-group">
+                                       <label for="parent_name" class="form-label"><i class="fas fa-user-friends me-2"></i>Parent's Name</label>
+                                       <input type="text" class="form-control @error('parent_name') is-invalid @enderror" id="parent_name" name="parent_name" value="{{ old('parent_name', $user->parent_name) }}">
+                                       @error('parent_name')
+                                           <div class="invalid-feedback">{{ $message }}</div>
+                                       @enderror
+                                   </div>
+                               </div>
+                               
+                               <div class="col-md-6">
+                                   <div class="form-group">
+                                       <label for="parent_phone" class="form-label"><i class="fas fa-phone-alt me-2"></i>Parent's Phone</label>
+                                       <input type="text" class="form-control @error('parent_phone') is-invalid @enderror" id="parent_phone" name="parent_phone" value="{{ old('parent_phone', $user->parent_phone) }}">
+                                       @error('parent_phone')
+                                           <div class="invalid-feedback">{{ $message }}</div>
+                                       @enderror
+                                   </div>
+                               </div>
                            </div>
                        </div>
                        
                        <!-- Mentor Tab -->
                        <div class="tab-pane fade" id="mentor" role="tabpanel" aria-labelledby="mentor-tab">
-                           <div class="mb-3">
-                               <label for="bio" class="form-label">Bio</label>
-                               <textarea class="form-control" id="bio" name="bio" rows="4">{{ old('bio', $user->bio) }}</textarea>
-                           </div>
-                           
-                           <div class="mb-3">
-                               <label for="hourly_rate" class="form-label">Hourly Rate (Rp)</label>
-                               <input type="number" step="0.01" class="form-control" id="hourly_rate" name="hourly_rate" value="{{ old('hourly_rate', $user->mentorProfile->hourly_rate ?? 0) }}">
-                           </div>
-                           
-                           <div class="mb-3">
-                               <label for="experience" class="form-label">Experience</label>
-                               <textarea class="form-control" id="experience" name="experience" rows="3">{{ old('experience', $user->mentorProfile->experience ?? '') }}</textarea>
-                           </div>
-                           
-                           <div class="mb-3">
-                               <label for="education" class="form-label">Education</label>
-                               <textarea class="form-control" id="education" name="education" rows="3">{{ old('education', $user->mentorProfile->education ?? '') }}</textarea>
-                           </div>
-                           
-                           <div class="mb-3 form-check">
-                               <input type="checkbox" class="form-check-input" id="is_active" name="is_active" {{ old('is_active', $user->mentorProfile->is_active ?? false) ? 'checked' : '' }}>
-                               <label class="form-check-label" for="is_active">Active (Available for Mentoring)</label>
+                           <div class="row mt-4">
+                               <div class="col-md-6">
+                                   <div class="form-group">
+                                       <label for="hourly_rate" class="form-label"><i class="fas fa-money-bill-wave me-2"></i>Hourly Rate (Rp)</label>
+                                       <input type="number" class="form-control @error('hourly_rate') is-invalid @enderror" id="hourly_rate" name="hourly_rate" value="{{ old('hourly_rate', $user->mentorProfile->hourly_rate ?? 0) }}">
+                                       @error('hourly_rate')
+                                           <div class="invalid-feedback">{{ $message }}</div>
+                                       @enderror
+                                   </div>
+                               </div>
+                               
+                               <div class="col-md-6">
+                                   <div class="form-group">
+                                       <label class="form-label"><i class="fas fa-check-circle me-2"></i>Status</label>
+                                       <div class="form-check mt-2">
+                                           <input type="checkbox" class="form-check-input" id="is_active" name="is_active" {{ old('is_active', $user->mentorProfile->is_active ?? false) ? 'checked' : '' }}>
+                                           <label class="form-check-label" for="is_active">Active (Available for Mentoring)</label>
+                                       </div>
+                                       @error('is_active')
+                                           <div class="invalid-feedback">{{ $message }}</div>
+                                       @enderror
+                                   </div>
+                               </div>
+                               
+                               <div class="col-md-12">
+                                   <div class="form-group">
+                                       <label for="bio" class="form-label"><i class="fas fa-info-circle me-2"></i>Bio</label>
+                                       <textarea class="form-control @error('bio') is-invalid @enderror" id="bio" name="bio" rows="4">{{ old('bio', $user->bio) }}</textarea>
+                                       @error('bio')
+                                           <div class="invalid-feedback">{{ $message }}</div>
+                                       @enderror
+                                   </div>
+                               </div>
+                               
+                               <div class="col-md-12">
+                                   <div class="form-group">
+                                       <label for="experience" class="form-label"><i class="fas fa-briefcase me-2"></i>Experience</label>
+                                       <textarea class="form-control @error('experience') is-invalid @enderror" id="experience" name="experience" rows="3">{{ old('experience', $user->mentorProfile->experience ?? '') }}</textarea>
+                                       @error('experience')
+                                           <div class="invalid-feedback">{{ $message }}</div>
+                                       @enderror
+                                   </div>
+                               </div>
+                               
+                               <div class="col-md-12">
+                                   <div class="form-group">
+                                       <label for="education" class="form-label"><i class="fas fa-graduation-cap me-2"></i>Education</label>
+                                       <textarea class="form-control @error('education') is-invalid @enderror" id="education" name="education" rows="3">{{ old('education', $user->mentorProfile->education ?? '') }}</textarea>
+                                       @error('education')
+                                           <div class="invalid-feedback">{{ $message }}</div>
+                                       @enderror
+                                   </div>
+                               </div>
                            </div>
                        </div>
                    </div>
                    
-                   <div class="mt-4">
-                       <button type="submit" class="btn btn-primary">Update User</button>
-                       <a href="{{ route('admin.users.index') }}" class="btn btn-secondary ms-2">Cancel</a>
-                   </div>
-               </form>
-           </div>
-       </div>
-   </div>
-   
-   <!-- Bootstrap JS and dependencies -->
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-   
-   <script>
-       // Script to handle showing/hiding tabs based on role selection
-       document.addEventListener('DOMContentLoaded', function() {
-           const roleSelect = document.getElementById('role');
-           const studentTabContainer = document.getElementById('student-tab-container');
-           const mentorTabContainer = document.getElementById('mentor-tab-container');
+                   <div class="form-buttons">
+                       <button type="submit" class="btn btn-primary">
+                           <i class="fas fa-save me-2"></i> Save Changes
+
+</button>
+<a href="{{ route('admin.users.show', $user->id) }}" class="btn btn-secondary">
+   <i class="fas fa-times me-2"></i> Cancel
+</a>
+</div>
+</form>
+</div>
+</div>
+</div>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+
+<script>
+   // Function to preview photo before upload
+   function previewPhoto(input) {
+       if (input.files && input.files[0]) {
+           const reader = new FileReader();
            
-           // Function to update tab visibility
-           function updateTabs() {
-               const selectedRole = roleSelect.value;
-               
-               // Hide all role-specific tabs initially
-               studentTabContainer.style.display = 'none';
-               mentorTabContainer.style.display = 'none';
-               
-               // Show tab based on selected role
-               if (selectedRole === 'pelajar') {
-                   studentTabContainer.style.display = 'block';
-               } else if (selectedRole === 'mentor') {
-                   mentorTabContainer.style.display = 'block';
-               }
-               
-               // Always reset to basic tab when role changes
-               document.getElementById('basic-tab').click();
+           reader.onload = function(e) {
+               document.getElementById('photoPreview').src = e.target.result;
            }
            
-           // Check initial state
-           updateTabs();
+           reader.readAsDataURL(input.files[0]);
+       }
+   }
+   
+   // Script to handle showing/hiding tabs based on role selection
+   document.addEventListener('DOMContentLoaded', function() {
+       const roleSelect = document.getElementById('role');
+       const studentTabContainer = document.getElementById('student-tab-container');
+       const mentorTabContainer = document.getElementById('mentor-tab-container');
+       
+       // Function to update tab visibility
+       function updateTabs() {
+           const selectedRole = roleSelect.value;
            
-           // Add change event listener
-           roleSelect.addEventListener('change', updateTabs);
-       });
-   </script>
+           // Hide all role-specific tabs initially
+           studentTabContainer.style.display = 'none';
+           mentorTabContainer.style.display = 'none';
+           
+           // Show tab based on selected role
+           if (selectedRole === 'pelajar') {
+               studentTabContainer.style.display = 'block';
+           } else if (selectedRole === 'mentor') {
+               mentorTabContainer.style.display = 'block';
+           }
+           
+           // Always reset to basic tab when role changes
+           document.getElementById('basic-tab').click();
+       }
+       
+       // Check initial state
+       updateTabs();
+       
+       // Add change event listener
+       roleSelect.addEventListener('change', updateTabs);
+   });
+</script>
 </body>
 </html>

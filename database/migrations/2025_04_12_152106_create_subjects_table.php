@@ -14,7 +14,11 @@ return new class extends Migration
         Schema::create('subjects', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('category');
             $table->text('description')->nullable();
+            $table->integer('display_order')->default(1);
+            $table->boolean('is_active')->default(true);
+            $table->string('icon')->nullable();
             $table->timestamps();
         });
     }

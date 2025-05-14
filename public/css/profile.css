@@ -40,7 +40,7 @@ body {
 
 .navbar .navbar-logo {
     font-size: 30px;
-    font-family: "Krona One", sans-serif;
+    font-family: "Krona One";
     font-weight: 400;
     color: var(--judul);
     text-decoration: none;
@@ -50,7 +50,7 @@ body {
 .navbar .navbar-nav a,
 .navbar .navbar-extra a {
     color: #fff;
-    font-family: Rubik, sans-serif;
+    font-family: Rubik;
     font-size: 17px;
     font-weight: 400;
     margin: 0 1.5rem;
@@ -76,6 +76,7 @@ body {
 .navbar .navbar-extra .user-name {
     color: #fff;
     margin-right: 10px;
+    font-family: "Krona One", sans-serif;
 }
 
 .navbar .navbar-extra .user-avatar {
@@ -83,7 +84,6 @@ body {
     height: 35px;
     border-radius: 50%;
     object-fit: cover;
-    border: 2px solid var(--judul);
 }
 
 /* Content container */
@@ -224,7 +224,7 @@ body {
     border: 1px solid rgba(142, 144, 151, 0.4);
     border-radius: 5px;
     color: var(--primary);
-    font-family: "Rubik", sans-serif;
+    font-family: "Rubik";
     font-size: 16px;
 }
 
@@ -248,7 +248,7 @@ body {
     font-weight: 500;
     cursor: pointer;
     transition: all 0.3s;
-    font-family: "Rubik", sans-serif;
+    font-family: "Rubik";
 }
 
 .btn-primary {

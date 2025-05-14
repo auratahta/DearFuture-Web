@@ -20,12 +20,12 @@
         <a href="#" class="navbar-logo">DearFuture</a>
         
         <div class="navbar-nav">
-            <a href="{{ url('/mentor/dashboard_mentor') }}">Home</a>
+            <a href="{{ route('mentor.dashboard_mentor') }}">Home</a>
         </div>
         
-        <div class="navbar-extra" onclick="window.location.href='{{ url('/profile') }}';" style="cursor: pointer;">
-            <span class="user-name">Deananda Viany</span>
-            <img src="{{ asset('image/profile.png') }}" alt="User Profile" class="user-avatar">
+        <div class="navbar-extra" onclick="window.location.href='{{ route('mentor.profile') }}';" style="cursor: pointer;">
+        <span class="user-name">{{ Auth::user()->name }}</span>
+            <img src="{{ Auth::user()->photo ? asset('storage/'.Auth::user()->photo) : asset('image/profile.png') }}" alt="User Profile" class="user-avatar">
         </div>
 
     </nav>

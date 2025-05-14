@@ -10,156 +10,125 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Krona+One&family=Rubik:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <!-- Styles -->
     <link rel="stylesheet" href="{{ asset('css/subject.css') }}">
 </head>
 
 <body>
-    <!-- Navbar Start -->
-    <nav class="navbar">
-        <a href="#" class="navbar-logo">DearFuture</a>
+    <!-- Header/Navbar -->
+    <header class="header">
+        <a href="{{ url('/student/menu') }}" class="logo">DearFuture</a>
         
-        <div class="navbar-nav">
+        <nav class="nav-links">
             <a href="{{ url('/student/menu') }}">Home</a>
-            <a href="{{ url('/student/history') }}" class="active">History</a>
-        </div>
+            <a href="{{ url('/student/history') }}">History</a>
+        </nav>
         
-        <div class="navbar-extra">
-            <span class="user-name">Aura Tahta</span>
-            <img src="{{ asset('image/profile.png') }}" alt="User Profile" class="user-avatar">
+        <div class="user-profile">
+            <span class="username">{{ Auth::user()->name }}</span>
+            <img src="{{ Auth::user()->photo ? asset('storage/'.Auth::user()->photo) : asset('image/profile.png') }}" alt="User Profile" class="avatar">
         </div>
-    </nav>
-    <!-- Navbar End -->
+    </header>
     
+    <!-- Main Container -->
     <div class="container">
-        <!-- Main Content -->
-        <div class="content-container">
-            <!-- Subject Grid -->
-            <div class="subject-grid">
-                <!-- Row 1 -->
-                <a href="{{ url('/student/find') }}" class="subject-card">
-                    <img src="{{ asset('image/subjects/Big Sale.png') }}" alt="Big Deals" class="subject-icon">
-                    <p class="subject-name">BIG DEALS</p>
-                </a>
-                
-                <a href="{{ url('/student/find') }}" class="subject-card">
-                    <img src="{{ asset('image/subjects/Snbt.png') }}" alt="SNBT" class="subject-icon">
-                    <p class="subject-name">SNBT</p>
-                </a>
-                
-                <a href="{{ url('/student/find') }}" class="subject-card">
-                    <img src="{{ asset('image/subjects/math.png') }}" alt="Math" class="subject-icon">
-                    <p class="subject-name">Math</p>
-                </a>
-                
-                <a href="{{ url('/find') }}" class="subject-card">
-                    <img src="{{ asset('image/subjects/physics.png') }}" alt="Physics" class="subject-icon">
-                    <p class="subject-name">Physics</p>
-                </a>
-                
-                <!-- Row 2 -->
-                <div class="subject-card">
-                    <img src="{{ asset('image/subjects/biology.png') }}" alt="Biology" class="subject-icon">
-                    <p class="subject-name">Biology</p>
-                </div>
-                
-                <div class="subject-card">
-                    <img src="{{ asset('image/subjects/chemistry.png') }}" alt="Chemistry" class="subject-icon">
-                    <p class="subject-name">Chemistry</p>
-                </div>
-                
-                <div class="subject-card">
-                    <img src="{{ asset('image/subjects/indonesian.png') }}" alt="Bahasa Indonesia" class="subject-icon">
-                    <p class="subject-name">Bahasa Indonesia</p>
-                </div>
-                
-                <div class="subject-card">
-                    <img src="{{ asset('image/subjects/english.png') }}" alt="English" class="subject-icon">
-                    <p class="subject-name">English</p>
-                </div>
-                
-                <!-- Row 3 -->
-                <div class="subject-card">
-                    <img src="{{ asset('image/subjects/economics.png') }}" alt="Economics" class="subject-icon">
-                    <p class="subject-name">Economics</p>
-                </div>
-                
-                <div class="subject-card">
-                    <img src="{{ asset('image/subjects/geography.png') }}" alt="Geography" class="subject-icon">
-                    <p class="subject-name">Geography</p>
-                </div>
-                
-                <div class="subject-card">
-                    <img src="{{ asset('image/subjects/history.png') }}" alt="History" class="subject-icon">
-                    <p class="subject-name">History</p>
-                </div>
-                
-                <div class="subject-card">
-                    <img src="{{ asset('image/subjects/sosiology.png') }}" alt="Sociology" class="subject-icon">
-                    <p class="subject-name">Sociology</p>
-                </div>
+        @if(session('error'))
+            <div class="alert alert-error">
+                <i class="fas fa-exclamation-circle"></i>
+                <div>{{ session('error') }}</div>
             </div>
+        @endif
+        
+        @php
+            // Ambil subjects special
+            $specialSubjects = $subjects->where('category', 'Special');
             
-            <!-- Promotions Area -->
-            <div class="promotions">
-                <!-- Promo Article 1 -->
-                <a href="#" class="promo-article">
-                    <div class="promo-image">
-                        <img src="{{ asset('image/promo.png') }}" alt="Promotion: Diskon hingga 58%">
-                        <span class="promo-tag">PROMO</span>
-                    </div>
-                    <div class="promo-content">
-                        <div class="promo-text">
-                            <h3>Promo Spesial: Diskon hingga 58%</h3>
-                            <p>Tidak ada kata terlambat untuk hemat. Manfaatkan promo spesial kami dengan diskon hingga 58% untuk semua pelajaran. Kesempatan terbatas!</p>
-                        </div>
-                        <div class="promo-footer">
-                            <span class="read-more">Baca Selengkapnya <i class="arrow-icon">→</i></span>
-                            <span class="promo-date">Berlaku hingga 31 Maret 2025</span>
-                        </div>
-                    </div>
-                </a>
+            // Ambil subjects akademik
+            $academicSubjects = $subjects->whereNotIn('category', ['Special'])->sortBy('display_order');
+        @endphp
+        
+        <!-- Special Subjects -->
+        @if($specialSubjects->count() > 0)
+            <section class="subject-section special-subjects fade-in">
+                <h2 class="section-title">Special Offers</h2>
                 
-                <!-- SNBT News Article -->
-                <a href="#" class="promo-article">
-                    <div class="promo-image">
-                        <img src="{{ asset('image/promo2.jpg') }}" alt="SNPMB 2025 News">
-                        <span class="promo-tag snbt">SNBT</span>
-                    </div>
-                    <div class="promo-content">
-                        <div class="promo-text">
-                            <h3>Kemendikbud Ristek Luncurkan SNPMB 2025, Berikut Jadwal SNBP dan UTBK-SNBT</h3>
-                            <p>Jakarta, Berita UIN Online - Kementerian Pendidikan, Kebudayaan, Riset, dan Teknologi resmi meluncurkan sistem Seleksi Nasional Penerimaan Mahasiswa Baru (SNPMB) tahun 2025 dalam Konferensi Pers di Gedung Kemendikbudristek, Jakarta.</p>
-                        </div>
-                        <div class="promo-footer">
-                            <span class="read-more">Baca Selengkapnya <i class="arrow-icon">→</i></span>
-                            <span class="promo-date">11 Desember 2024</span>
-                        </div>
-                    </div>
-                </a>
+                <div class="subject-grid">
+                    @foreach($specialSubjects as $index => $subject)
+                        <a href="{{ url('/student/find') }}?subject={{ $subject->id }}" class="subject-card fade-in delay-{{ $index + 1 }}">
+                            <img src="{{ $subject->icon ? asset('storage/subjects/' . $subject->icon) : asset('image/subjects/' . Str::slug($subject->name, '-') . '.png') }}" alt="{{ $subject->name }}" class="subject-icon">
+                            <h3 class="subject-name">{{ $subject->name }}</h3>
+                            @if($subject->description)
+                                <p class="subject-description">{{ $subject->description }}</p>
+                            @endif
+                        </a>
+                    @endforeach
+                </div>
+            </section>
+        @endif
+        
+        <!-- Academic Subjects -->
+        @if($academicSubjects->count() > 0)
+            <section class="subject-section academic-subjects fade-in delay-2">
+                <h2 class="section-title">Academic Subjects</h2>
                 
-                <!-- Scholarship News Article -->
-                <a href="#" class="promo-article">
-                    <div class="promo-image">
-                        <img src="{{ asset('image/promo3.jpg') }}" alt="Australia Scholarship News">
-                        <span class="promo-tag beasiswa">BEASISWA</span>
-                    </div>
-                    <div class="promo-content">
-                        <div class="promo-text">
-                            <h3>Peluang Emas! 6 Universitas Ternama Australia Tawarkan Beasiswa Fully Funded Tahun 2025</h3>
-                            <p>Australia merupakan salah satu negara dengan pendidikan terbaik di dunia, banyak universitas ternama yang menawarkan program beasiswa fully funded bagi mahasiswa Indonesia. Kesempatan ini dibuka untuk program sarjana hingga doktoral.</p>
-                        </div>
-                        <div class="promo-footer">
-                            <span class="read-more">Baca Selengkapnya <i class="arrow-icon">→</i></span>
-                            <span class="promo-date">Maret 2025</span>
-                        </div>
-                    </div>
-                </a>
-            </div>
-        </div>
-    </div>
-
+                <div class="subject-grid">
+                    @foreach($academicSubjects as $index => $subject)
+                        <a href="{{ url('/student/find') }}?subject={{ $subject->id }}" class="subject-card fade-in delay-{{ $index % 4 + 1 }}">
+                            <img src="{{ $subject->icon ? asset('storage/subjects/' . $subject->icon) : asset('image/subjects/' . Str::slug($subject->name, '-') . '.png') }}" alt="{{ $subject->name }}" class="subject-icon">
+                            <h3 class="subject-name">{{ $subject->name }}</h3>
+                            @if($subject->description)
+                                <p class="subject-description">{{ $subject->description }}</p>
+                            @endif
+                        </a>
+                    @endforeach
+                </div>
+            </section>
+        @endif
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2025 DearFuture. All rights reserved.</p>
+    </footer>
+    
     <!-- JavaScript -->
-    <script src="{{ asset('js/app.js') }}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animasi ketika halaman dimuat
+            const elements = document.querySelectorAll('.fade-in');
+            
+            // Observer untuk animasi scroll
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = 1;
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            // Observasi elemen dengan kelas fade-in
+            elements.forEach(element => {
+                element.style.opacity = 0;
+                element.style.transform = 'translateY(20px)';
+                element.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+                observer.observe(element);
+            });
+            
+            // Hover efek untuk card
+            const cards = document.querySelectorAll('.subject-card');
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.querySelector('.subject-icon').style.transform = 'scale(1.2) rotate(5deg)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.querySelector('.subject-icon').style.transform = 'scale(1)';
+                });
+            });
+        });
+    </script>
 </body>
 </html>

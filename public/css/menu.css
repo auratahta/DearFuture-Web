@@ -65,6 +65,25 @@ body {
     transition: 0.1s;
 }
 
+.navbar .navbar-extra .user-avatar {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.navbar .navbar-extra {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.navbar .navbar-extra .user-name {
+    color: #fff;
+    margin-right: 10px;
+    font-family: "Krona One", sans-serif;
+}
+
 /* User profile in navbar */
 .navbar .navbar-extra {
     display: flex;

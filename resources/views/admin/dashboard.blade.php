@@ -1,4 +1,3 @@
-<!-- resources/views/admin/dashboard.blade.php -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -411,7 +410,7 @@
                             <tr>
                                 <td>
                                     <div class="d-flex align-items-center">
-                                        <img src="{{ $user->profile && $user->profile->photo ? asset('storage/' . $user->profile->photo) : 'https://via.placeholder.com/40' }}" alt="User" class="user-avatar">
+                                        <img src="{{ $user->photo ? asset('storage/' . $user->photo) : asset('image/profile.png') }}" alt="User" class="user-avatar">
                                         {{ $user->name }}
                                     </div>
                                 </td>

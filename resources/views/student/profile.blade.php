@@ -36,6 +36,22 @@
     <!-- Navbar End -->
     
     <div class="container">
+        @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+        @endif
+        
+        @if($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach($errors->all() as $error)
+                <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+        @endif
+        
         <div class="profile-header">
             <div class="profile-avatar">
                 <img src="{{ $user->photo ? asset('storage/'.$user->photo) : asset('image/profile.png') }}" alt="{{ $user->name }}">
@@ -79,7 +95,7 @@
         </div>
 
         <!-- Edit Profile Form -->
-        <div class="edit-profile-form" id="editProfileSection">
+        <div class="edit-profile-form" id="editProfileSection" style="display: none;">
             <form action="{{ route('student.profile.update') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
@@ -101,7 +117,7 @@
                 
                 <div class="form-group">
                     <label for="birthdate">Birth Date</label>
-                    <input type="date" id="birthdate" name="birthdate" value="{{ $user->birthdate }}">
+                    <input type="date" id="birthdate" name="birthdate" value="{{ $user->birthdate ? $user->birthdate->format('Y-m-d') : '' }}">
                 </div>
                 
                 <div class="form-group">
@@ -137,6 +153,13 @@
                 <div class="form-group">
                     <label for="photo">Profile Photo</label>
                     <input type="file" id="photo" name="photo">
+                    @if($user->photo)
+                    <div class="current-photo mt-2">
+                        <p>Current Photo:</p>
+                        <img src="{{ asset('storage/'.$user->photo) }}" alt="Current Photo">
+                    </div>
+                    @endif
+                    <div class="photo-preview"></div>
                 </div>
                 
                 <div class="form-buttons">
@@ -163,6 +186,38 @@
                 editProfileSection.style.display = 'none';
                 viewProfileSection.style.display = 'block';
             });
+            
+            // Photo preview functionality
+            const photoInput = document.getElementById('photo');
+            const photoPreview = document.querySelector('.photo-preview');
+            
+            if (photoInput && photoPreview) {
+                photoInput.addEventListener('change', function() {
+                    photoPreview.innerHTML = '';
+                    
+                    if (this.files && this.files[0]) {
+                        const reader = new FileReader();
+                        
+                        reader.onload = function(e) {
+                            const previewContainer = document.createElement('div');
+                            previewContainer.className = 'preview-container';
+                            
+                            const previewLabel = document.createElement('p');
+                            previewLabel.textContent = 'Preview:';
+                            
+                            const img = document.createElement('img');
+                            img.src = e.target.result;
+                            img.alt = 'Photo Preview';
+                            
+                            previewContainer.appendChild(previewLabel);
+                            previewContainer.appendChild(img);
+                            photoPreview.appendChild(previewContainer);
+                        }
+                        
+                        reader.readAsDataURL(this.files[0]);
+                    }
+                });
+            }
         });
     </script>
 </body>

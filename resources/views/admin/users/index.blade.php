@@ -261,6 +261,15 @@
             color: var(--primary-color);
         }
         
+        /* User avatar specific styles */
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 10px;
+        }
+        
         /* Responsive */
         @media (max-width: 768px) {
             .sidebar {
@@ -390,7 +399,7 @@
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>Name</th>
+                                <th>User</th>
                                 <th>Email</th>
                                 <th>Role</th>
                                 <th>Created</th>
@@ -401,7 +410,12 @@
                             @forelse($users as $user)
                             <tr>
                                 <td>{{ $user->id }}</td>
-                                <td>{{ $user->name }}</td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <img src="{{ $user->photo ? asset('storage/' . $user->photo) : asset('image/profile.png') }}" alt="User" class="user-avatar">
+                                        {{ $user->name }}
+                                    </div>
+                                </td>
                                 <td>{{ $user->email }}</td>
                                 <td>
                                     @if($user->role == 'admin')

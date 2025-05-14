@@ -1,4 +1,5 @@
 <?php
+// app/Http/Controllers/Student/ProfileStudentController.php
 
 namespace App\Http\Controllers\Student;
 
@@ -54,7 +55,9 @@ class ProfileStudentController extends Controller
                 Storage::disk('public')->delete($user->photo);
             }
             
-            $path = $request->file('photo')->store('profile-photos', 'public');
+            // Generate a descriptive filename
+            $fileName = 'user_' . $user->id . '_' . time() . '.' . $request->file('photo')->getClientOriginalExtension();
+            $path = $request->file('photo')->storeAs('profile-photos', $fileName, 'public');
             $userData['photo'] = $path;
         }
         

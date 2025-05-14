@@ -8,6 +8,9 @@ use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Mentor\DashboardController as MentorDashboardController;
 use App\Http\Controllers\Student\DashboardController as StudentDashboardController;
 use App\Http\Controllers\Student\ProfileStudentController;
+use App\Http\Controllers\Mentor\ProfileMentorController;
+use App\Http\Controllers\Admin\SubjectController; 
+use App\Http\Controllers\Student\SubjectController as StudentSubjectController;
 
 // Public routes
 Route::get('/', function () {
@@ -35,11 +38,25 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
         'destroy' => 'admin.users.destroy',
     ]);
 
+    // Subject Management
+    Route::resource('subjects', SubjectController::class)->names([
+        'index' => 'admin.subjects.index',
+        'create' => 'admin.subjects.create',
+        'store' => 'admin.subjects.store',
+        'show' => 'admin.subjects.show',
+        'edit' => 'admin.subjects.edit',
+        'update' => 'admin.subjects.update',
+        'destroy' => 'admin.subjects.destroy',
+    ]);
+    Route::patch('subjects/{subject}/toggle-active', [SubjectController::class, 'toggleActive'])->name('admin.subjects.toggle-active');
+    Route::get('subjects/{subject}/mentors', [SubjectController::class, 'manageMentors'])->name('admin.subjects.mentors');
+    Route::post('subjects/{subject}/mentors', [SubjectController::class, 'addMentor'])->name('admin.subjects.add-mentor');
+    Route::delete('subjects/{subject}/mentors/{mentor}', [SubjectController::class, 'removeMentor'])->name('admin.subjects.remove-mentor');
     
-    // Rute lainnya yang menggunakan closure
-    Route::get('/subjects', function () {
-        return view('admin.subjects.index');
-    })->name('admin.subjects.index');
+    // // Rute lainnya yang menggunakan closure
+    // Route::get('/subjects', function () {
+    //     return view('admin.subjects.index');
+    // })->name('admin.subjects.index');
     
     Route::get('/mentors', function () {
         return view('admin.mentors.index');
@@ -66,6 +83,12 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
 Route::prefix('mentor')->middleware(['auth'])->group(function () {
     Route::get('/dashboard', [MentorDashboardController::class, 'index'])->name('mentor.dashboard_mentor');
     
+    // Profile Mentor routes
+    Route::get('/profile', [ProfileMentorController::class, 'index'])->name('mentor.profile');
+    Route::put('/profile/update', [ProfileMentorController::class, 'update'])->name('mentor.profile.update');
+    Route::get('/change-password', [ProfileMentorController::class, 'showChangePasswordForm'])->name('mentor.password.form');
+    Route::post('/change-password', [ProfileMentorController::class, 'changePassword'])->name('mentor.password.update');
+    
     Route::get('/schedule', function () {
         return view('mentor.schedule');
     })->name('mentor.schedule');
@@ -77,10 +100,6 @@ Route::prefix('mentor')->middleware(['auth'])->group(function () {
     Route::get('/history', function () {
         return view('mentor.history');
     })->name('mentor.history');
-    
-    Route::get('/profile', function () {
-        return view('mentor.profile');
-    })->name('mentor.profile');
     
     Route::get('/reviews', function () {
         return view('mentor.reviews');
@@ -101,9 +120,11 @@ Route::prefix('student')->middleware(['auth'])->group(function () {
         return view('student.menu');
     })->name('student.menu');
     
-    Route::get('/subjects', function () {
-        return view('student.subjects');
-    })->name('student.subjects');
+    // Route::get('/subjects', function () {
+    //     return view('student.subjects');
+    // })->name('student.subjects');
+
+    Route::get('/subjects', [StudentSubjectController::class, 'index'])->name('student.subjects');
     
     Route::get('/find', function () {
         return view('student.find');

@@ -16,6 +16,9 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('subject_id')->constrained()->onDelete('cascade');
             $table->timestamps();
+            
+            // Setiap mentor hanya bisa memiliki satu relasi per mata pelajaran
+            $table->unique(['user_id', 'subject_id']);
         });
     }
 

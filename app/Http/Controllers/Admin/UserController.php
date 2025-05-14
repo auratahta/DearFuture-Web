@@ -1,4 +1,5 @@
 <?php
+// app/Http/Controllers/Admin/UserController.php
 
 namespace App\Http\Controllers\Admin;
 
@@ -55,9 +56,10 @@ class UserController extends Controller
             'birthdate' => 'nullable|date',
             'parent_name' => 'nullable|string',
             'parent_phone' => 'nullable|string',
+            'photo' => 'nullable|image|max:2048',
         ]);
         
-        $user = User::create([
+        $userData = [
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
@@ -69,7 +71,16 @@ class UserController extends Controller
             'birthdate' => $request->birthdate,
             'parent_name' => $request->parent_name,
             'parent_phone' => $request->parent_phone,
-        ]);
+        ];
+        
+        // Handle photo upload
+        if ($request->hasFile('photo')) {
+            $fileName = 'user_new_' . time() . '.' . $request->file('photo')->getClientOriginalExtension();
+            $photoPath = $request->file('photo')->storeAs('profile-photos', $fileName, 'public');
+            $userData['photo'] = $photoPath;
+        }
+        
+        $user = User::create($userData);
         
         // Create mentor profile if user is a mentor
         if ($request->role === 'mentor') {
@@ -90,9 +101,9 @@ class UserController extends Controller
      * Display the specified user.
      */
     public function show(User $user)
-{
-    return view('admin.users.show', compact('user'));
-}
+    {
+        return view('admin.users.show', compact('user'));
+    }
 
     /**
      * Show the form for editing the specified user.
@@ -119,6 +130,7 @@ class UserController extends Controller
             'birthdate' => 'nullable|date',
             'parent_name' => 'nullable|string',
             'parent_phone' => 'nullable|string',
+            'photo' => 'nullable|image|max:2048',
         ]);
         
         $userData = [
@@ -136,6 +148,19 @@ class UserController extends Controller
         
         if ($request->filled('password')) {
             $userData['password'] = Hash::make($request->password);
+        }
+        
+        // Handle photo upload
+        if ($request->hasFile('photo')) {
+            // Delete old photo if exists
+            if ($user->photo && Storage::disk('public')->exists($user->photo)) {
+                Storage::disk('public')->delete($user->photo);
+            }
+            
+            // Store new photo
+            $fileName = 'user_' . $user->id . '_' . time() . '.' . $request->file('photo')->getClientOriginalExtension();
+            $photoPath = $request->file('photo')->storeAs('profile-photos', $fileName, 'public');
+            $userData['photo'] = $photoPath;
         }
         
         $user->update($userData);
@@ -171,6 +196,11 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
+        // Delete photo if exists
+        if ($user->photo && Storage::disk('public')->exists($user->photo)) {
+            Storage::disk('public')->delete($user->photo);
+        }
+        
         // Delete mentor profile if exists
         MentorProfile::where('user_id', $user->id)->delete();
         
