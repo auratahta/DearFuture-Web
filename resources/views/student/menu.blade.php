@@ -58,7 +58,7 @@
             </div>
 
 
-            <div class="feature-card" onclick="window.location.href='{{ url('/student/subjects') }}';" style="cursor: pointer;">
+            <div class="feature-card" onclick="window.location.href='{{ url('/student/news') }}';" style="cursor: pointer;">
                 <div class="feature-icon">
                     <img src="{{ asset('image/news.png') }}" alt="DearFuture news">
                 </div>

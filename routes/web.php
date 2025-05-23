@@ -11,6 +11,8 @@ use App\Http\Controllers\Student\ProfileStudentController;
 use App\Http\Controllers\Mentor\ProfileMentorController;
 use App\Http\Controllers\Admin\SubjectController; 
 use App\Http\Controllers\Student\SubjectController as StudentSubjectController;
+use App\Http\Controllers\Admin\NewsController;
+use App\Http\Controllers\Student\NewsController as StudentNewsController;
 
 // Public routes
 Route::get('/', function () {
@@ -52,6 +54,21 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::get('subjects/{subject}/mentors', [SubjectController::class, 'manageMentors'])->name('admin.subjects.mentors');
     Route::post('subjects/{subject}/mentors', [SubjectController::class, 'addMentor'])->name('admin.subjects.add-mentor');
     Route::delete('subjects/{subject}/mentors/{mentor}', [SubjectController::class, 'removeMentor'])->name('admin.subjects.remove-mentor');
+
+     // News Management - Resource routes
+    Route::resource('news', NewsController::class)->names([
+        'index' => 'admin.news.index',
+        'create' => 'admin.news.create', 
+        'store' => 'admin.news.store',
+        'show' => 'admin.news.show',
+        'edit' => 'admin.news.edit',
+        'update' => 'admin.news.update',
+        'destroy' => 'admin.news.destroy',
+    ]);
+    
+    // Additional News routes
+    Route::patch('news/{news}/toggle-featured', [NewsController::class, 'toggleFeatured'])->name('admin.news.toggle-featured');
+    Route::post('news/bulk-action', [NewsController::class, 'bulkAction'])->name('admin.news.bulk-action');
     
     // // Rute lainnya yang menggunakan closure
     // Route::get('/subjects', function () {
@@ -74,9 +91,6 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
         return view('admin.payments.index');
     })->name('admin.payments.index');
 
-    Route::get('/news', function () {
-        return view('admin.news.index');
-    })->name('admin.news.index');
 });
 
 // Mentor routes
@@ -133,7 +147,13 @@ Route::prefix('student')->middleware(['auth'])->group(function () {
     Route::get('/history', function () {
         return view('student.history');
     })->name('student.history');
+
+    // Route untuk student news
+    Route::get('/news', [StudentNewsController::class, 'index'])->name('student.news.index');
+    Route::get('/news/search', [StudentNewsController::class, 'search'])->name('student.news.search');
+    Route::get('/news/{id}', [StudentNewsController::class, 'show'])->name('student.news.show');
 });
+
 
 // Route fallback untuk menangani 404
 Route::fallback(function () {
