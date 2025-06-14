@@ -66,7 +66,9 @@
 
             <div class="feature-card">
                 <div class="feature-icon">
-                    <img src="{{ asset('image/review.png') }}" alt="DearFuture review">
+                    <a href="#Review">
+                        <img src="{{ asset('image/review.png') }}" alt="DearFuture review" style="cursor: pointer;">
+                    </a>
                 </div>
                 <h2>Review</h2>
                 <p>Gain confidence through authentic reviews, ensuring a high-quality mentoring experience</p>
@@ -164,7 +166,7 @@
     <!-- App Showcase Section End -->
 
     <!-- Review Section Start -->
-    <section class="review-section">
+    <section class="review-section" id="Review">
         <div class="background-elements">
             <div class="circle circle-1"></div>
             <div class="circle circle-2"></div>
@@ -331,5 +333,41 @@
     <!-- My JavaScript -->
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('js/review.js') }}"></script>
+    
+    <!-- Smooth scroll script for review image click -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Smooth scroll function
+            function smoothScroll(target) {
+                const element = document.querySelector(target);
+                if (element) {
+                    element.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            }
+            
+            // Add click event to review image
+            const reviewLink = document.querySelector('a[href="#Review"]');
+            if (reviewLink) {
+                reviewLink.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    smoothScroll('#Review');
+                });
+            }
+            
+            // Also handle navbar links for smooth scrolling
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = this.getAttribute('href');
+                    if (target && target !== '#') {
+                        smoothScroll(target);
+                    }
+                });
+            });
+        });
+    </script>
 </body>
-</html>
+</html> 

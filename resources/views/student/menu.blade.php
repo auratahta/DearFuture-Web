@@ -57,7 +57,6 @@
                 <p>Connect with expert mentors based on their specialization, availability, and preferred schedule</p>
             </div>
 
-
             <div class="feature-card" onclick="window.location.href='{{ url('/student/news') }}';" style="cursor: pointer;">
                 <div class="feature-icon">
                     <img src="{{ asset('image/news.png') }}" alt="DearFuture news">
@@ -66,7 +65,7 @@
                 <p>Access valuable resources, including scholarship opportunities, exam schedules, and inspiring articles</p>
             </div>
 
-            <div class="feature-card" onclick="window.location.href='{{ url('/student/menu') }}';" style="cursor: pointer;">
+            <div class="feature-card review-card" style="cursor: pointer;">
                 <div class="feature-icon">
                     <img src="{{ asset('image/review.png') }}" alt="DearFuture review">
                 </div>
@@ -166,7 +165,7 @@
     <!-- App Showcase Section End -->
 
     <!-- Review Section Start -->
-    <section class="review-section">
+    <section class="review-section" id="Review">
         <div class="background-elements">
             <div class="circle circle-1"></div>
             <div class="circle circle-2"></div>
@@ -258,5 +257,65 @@
     <!-- My JavaScript -->
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('js/review.js') }}"></script>
+    
+    <!-- Review Navigation Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get the review card element
+            const reviewCard = document.querySelector('.review-card');
+            
+            // Function for smooth scrolling to review section
+            function scrollToReview() {
+                const reviewSection = document.getElementById('Review');
+                if (reviewSection) {
+                    // Get navbar height for offset
+                    const navbar = document.querySelector('.navbar');
+                    const navbarHeight = navbar ? navbar.offsetHeight : 0;
+                    
+                    // Calculate scroll position
+                    const offsetTop = reviewSection.offsetTop - navbarHeight - 20; // 20px extra padding
+                    
+                    // Smooth scroll to review section
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
+            }
+            
+            // Add click event listener to review card
+            if (reviewCard) {
+                reviewCard.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    scrollToReview();
+                });
+            }
+            
+            // Optional: Add keyboard navigation (Enter key)
+            if (reviewCard) {
+                reviewCard.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        scrollToReview();
+                    }
+                });
+                
+                // Make it focusable for keyboard navigation
+                reviewCard.setAttribute('tabindex', '0');
+            }
+            
+            // Add visual feedback for hover state
+            if (reviewCard) {
+                reviewCard.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-5px)';
+                    this.style.transition = 'transform 0.3s ease';
+                });
+                
+                reviewCard.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            }
+        });
+    </script>
 </body>
 </html>

@@ -24,7 +24,7 @@
         <a href="#" class="navbar-logo">DearFuture</a>
         <div class="navbar-nav">
             <a href="{{url('/student/menu')}}">Home</a>
-            <a href="{{ route('student.history') }}">History</a>
+            <a href="{{ route('student.history.index') }}">History</a>
             <a href="{{ route('student.profile') }}" class="active">Profile</a>
         </div>
         

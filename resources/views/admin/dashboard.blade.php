@@ -313,12 +313,6 @@
                 </a>
             </li>
             <li>
-                <a href="{{ route('admin.payments.index') }}">
-                    <i class="fas fa-credit-card"></i>
-                    <span>Payments</span>
-                </a>
-            </li>
-            <li>
                 <a href="{{ route('admin.news.index') }}">
                     <i class="fas fa-newspaper"></i>
                     <span>News</span>
@@ -441,7 +435,7 @@
             </div>
         </div>
         
-        <!-- Recent Sessions -->
+        <!-- Recent Sessions - REPLACE SELURUH BAGIAN INI -->
         <div class="card">
             <div class="card-header">
                 <div>Recent Sessions</div>
@@ -461,32 +455,152 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($recentSessions as $session)
+                            @forelse($recentSessions as $session)
                             <tr>
-                                <td>#{{ $session->id }}</td>
-                                <td>{{ $session->student->name }}</td>
-                                <td>{{ $session->mentor->name }}</td>
-                                <td>{{ $session->subject->name }}</td>
-                                <td>{{ $session->date->format('d M Y') }}, {{ $session->start_time->format('H:i') }} - {{ $session->end_time->format('H:i') }}</td>
+                                <td>#{{ $session->id ?? 'N/A' }}</td>
+                                
+                                <!-- SAFE Student Name -->
                                 <td>
-                                    @if($session->status == 'pending')
-                                        <span class="status-badge status-pending">Pending</span>
-                                    @elseif($session->status == 'confirmed')
-                                        <span class="status-badge status-confirmed">Confirmed</span>
-                                    @elseif($session->status == 'completed')
-                                        <span class="status-badge status-completed">Completed</span>
+                                    @if(isset($session->student) && $session->student && isset($session->student->name))
+                                        {{ $session->student->name }}
                                     @else
-                                        <span class="status-badge status-canceled">Canceled</span>
+                                        <span class="text-muted">Available Slot</span>
                                     @endif
                                 </td>
+                                
+                                <!-- SAFE Mentor Name -->
+                                <td>
+                                    @if(isset($session->mentor) && $session->mentor && isset($session->mentor->name))
+                                        {{ $session->mentor->name }}
+                                    @else
+                                        <span class="text-muted">No Mentor</span>
+                                    @endif
+                                </td>
+                                
+                                <!-- SAFE Subject Name -->
+                                <td>
+                                    @if(isset($session->subject) && $session->subject && isset($session->subject->name))
+                                        {{ $session->subject->name }}
+                                    @else
+                                        <span class="text-muted">No Subject</span>
+                                    @endif
+                                </td>
+                                
+                                <!-- SAFE Date & Time -->
+                                <td>
+                                    @php
+                                        $dateString = 'No Date';
+                                        $timeString = 'No Time';
+                                        
+                                        // Handle Date
+                                        if (isset($session->date) && $session->date) {
+                                            try {
+                                                if (is_object($session->date) && method_exists($session->date, 'format')) {
+                                                    $dateString = $session->date->format('d M Y');
+                                                } else {
+                                                    $dateString = \Carbon\Carbon::parse($session->date)->format('d M Y');
+                                                }
+                                            } catch (\Exception $e) {
+                                                $dateString = 'Invalid Date';
+                                            }
+                                        }
+                                        
+                                        // Handle Time
+                                        if (isset($session->start_time) && isset($session->end_time)) {
+                                            try {
+                                                $startTime = $session->start_time;
+                                                $endTime = $session->end_time;
+                                                
+                                                // If formatted times are available, use them
+                                                if (isset($session->formatted_start_time) && isset($session->formatted_end_time)) {
+                                                    $timeString = $session->formatted_start_time . ' - ' . $session->formatted_end_time;
+                                                } else {
+                                                    // Format times manually
+                                                    if (preg_match('/^\d{2}:\d{2}$/', $startTime)) {
+                                                        $formattedStart = $startTime;
+                                                    } else {
+                                                        $formattedStart = \Carbon\Carbon::parse($startTime)->format('H:i');
+                                                    }
+                                                    
+                                                    if (preg_match('/^\d{2}:\d{2}$/', $endTime)) {
+                                                        $formattedEnd = $endTime;
+                                                    } else {
+                                                        $formattedEnd = \Carbon\Carbon::parse($endTime)->format('H:i');
+                                                    }
+                                                    
+                                                    $timeString = $formattedStart . ' - ' . $formattedEnd;
+                                                }
+                                            } catch (\Exception $e) {
+                                                $timeString = 'Time Error';
+                                            }
+                                        }
+                                    @endphp
+                                    
+                                    <span class="{{ $dateString === 'No Date' || $dateString === 'Invalid Date' ? 'text-muted' : '' }}">
+                                        {{ $dateString }}
+                                    </span>
+                                    @if($timeString !== 'No Time')
+                                        , <span class="{{ $timeString === 'Time Error' ? 'text-muted' : '' }}">{{ $timeString }}</span>
+                                    @endif
+                                </td>
+                                
+                                <!-- SAFE Status -->
+                                <td>
+                                    @php
+                                        $status = $session->status ?? 'unknown';
+                                        $statusClass = 'status-badge bg-secondary';
+                                        $statusText = ucfirst($status);
+                                        
+                                        switch($status) {
+                                            case 'available':
+                                                $statusClass = 'status-badge bg-success text-white';
+                                                $statusText = 'Available';
+                                                break;
+                                            case 'booked':
+                                                $statusClass = 'status-badge bg-warning text-dark';
+                                                $statusText = 'Booked';
+                                                break;
+                                            case 'pending':
+                                                $statusClass = 'status-badge status-pending';
+                                                $statusText = 'Pending';
+                                                break;
+                                            case 'confirmed':
+                                                $statusClass = 'status-badge status-confirmed';
+                                                $statusText = 'Confirmed';
+                                                break;
+                                            case 'ongoing':
+                                                $statusClass = 'status-badge bg-primary text-white';
+                                                $statusText = 'Ongoing';
+                                                break;
+                                            case 'completed':
+                                                $statusClass = 'status-badge status-completed';
+                                                $statusText = 'Completed';
+                                                break;
+                                            case 'cancelled':
+                                                $statusClass = 'status-badge status-canceled';
+                                                $statusText = 'Cancelled';
+                                                break;
+                                        }
+                                    @endphp
+                                    
+                                    <span class="{{ $statusClass }}">{{ $statusText }}</span>
+                                </td>
                             </tr>
-                            @endforeach
+                            @empty
+                            <tr>
+                                <td colspan="6" class="text-center py-4">
+                                    <div class="text-muted">
+                                        <i class="fas fa-calendar-times mb-2" style="font-size: 2rem; opacity: 0.5; display: block;"></i>
+                                        No recent sessions found
+                                    </div>
+                                </td>
+                            </tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
-    </div>
     
     <!-- Bootstrap JS and dependencies -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>

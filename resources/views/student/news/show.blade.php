@@ -19,21 +19,23 @@
 
 <body>
     <!-- Navbar -->
-    <nav class="header">
-        <a href="{{ url('/student/menu') }}" class="logo">DearFuture</a>
+     <!-- Navbar Start -->
+    <nav class="navbar">
+        <a href="#" class="navbar-logo">DearFuture</a>
         
-        <nav class="nav-links">
+         <div class="nav-links">
             <a href="{{ url('/student/menu') }}">Home</a>
             <a href="{{ route('student.news.index') }}">News</a>
             <a href="{{ url('/student/subjects') }}">Subjects</a>
             <a href="{{ url('/student/history') }}">History</a>
-        </nav>
+        </div>
         
-        <div class="user-profile">
-            <span class="username">{{ Auth::user()->name ?? 'Student' }}</span>
-            <img src="{{ Auth::user()->photo ? asset('storage/'.Auth::user()->photo) : asset('image/profile.png') }}" alt="User Profile" class="avatar">
+        <div class="navbar-extra" onclick="window.location.href='{{ route('student.profile') }}';" style="cursor: pointer;">
+            <span class="user-name">{{ Auth::user()->name }}</span>
+            <img src="{{ Auth::user()->photo ? asset('storage/'.Auth::user()->photo) : asset('image/profile.png') }}" alt="User Profile" class="user-avatar">
         </div>
     </nav>
+    <!-- Navbar End -->
 
     <!-- Main Content -->
     <div class="article-container">

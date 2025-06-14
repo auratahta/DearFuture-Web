@@ -439,12 +439,7 @@
                     <span>Sessions</span>
                 </a>
             </li>
-            <li>
-                <a href="{{ route('admin.payments.index') }}" class="{{ Request::routeIs('admin.payments.*') ? 'active' : '' }}">
-                    <i class="fas fa-credit-card"></i>
-                    <span>Payments</span>
-                </a>
-            </li>
+            
             <li>
                 <a href="{{ route('admin.news.index') }}" class="{{ Request::routeIs('admin.news.*') ? 'active' : '' }}">
                     <i class="fas fa-newspaper"></i>

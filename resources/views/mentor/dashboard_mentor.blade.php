@@ -46,7 +46,7 @@
     <!-- Features Section Start -->
     <section class="features">
         <div class="container">
-            <div class="feature-card" onclick="window.location.href='{{ url('/mentor/schedule') }}';" style="cursor: pointer;">
+            <div class="feature-card" onclick="window.location.href='{{ url('/mentor/history') }}';" style="cursor: pointer;">
                 <div class="feature-icon">
                     <img src="{{ asset('image/Mentor.png') }}" alt="DearFuture Mentor">
                 </div>
